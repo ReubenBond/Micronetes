@@ -1,11 +1,12 @@
-using Grpc.Net.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ProtoBuf.Grpc.Client;
-using Shared.Contracts;
+using Orleans;
+using Orleans.Configuration;
+using Orleans.Hosting;
+using System.Threading.Tasks;
 
 namespace FrontEnd
 {
@@ -23,9 +24,14 @@ namespace FrontEnd
         {
             services.AddRazorPages();
 
-            var address = Configuration.GetServiceUri("backend");
+            var clientBuilder = new ClientBuilder();
+            clientBuilder.Configure<ClusterOptions>(o => o.ClusterId = o.ServiceId = "dev");
 
-            services.AddSingleton(_ => GrpcChannel.ForAddress(address).CreateGrpcService<IOrderService>());
+            var cfg = Configuration;
+            clientBuilder.UseRedisMembership($"{cfg["SERVICE:REDIS:HOST"]}:{cfg["SERVICE:REDIS:PORT"]}");
+            var client = clientBuilder.Build();
+            client.Connect(async e => { await Task.Delay(2000); return true; }).GetAwaiter().GetResult();
+            services.AddSingleton<IGrainFactory>(client);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

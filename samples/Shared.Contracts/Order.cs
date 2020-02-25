@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Shared.Contracts
 {
+    [Serializable]
     [DataContract]
     public class Order
     {

@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Threading;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using ProtoBuf.Grpc.Client;
 
 namespace FrontEnd
 {
@@ -11,8 +10,6 @@ namespace FrontEnd
         public static void Main(string[] args)
         {
             Activity.DefaultIdFormat = ActivityIdFormat.W3C;
-            GrpcClientFactory.AllowUnencryptedHttp2 = true;
-
             CreateHostBuilder(args).Build().Run();
         }
 

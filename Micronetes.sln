@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "m8s", "src\m8s\m8s.csproj",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micronetes.Hosting.Diagnostics", "src\Micronetes.Hosting.Diagnostics\Micronetes.Hosting.Diagnostics.csproj", "{4EBB8F3A-2EBB-465D-8346-926749F13413}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans.Clustering.Redis", "Orleans.Clustering.Redis\src\Orleans.Clustering.Redis\Orleans.Clustering.Redis.csproj", "{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +153,18 @@ Global
 		{4EBB8F3A-2EBB-465D-8346-926749F13413}.Release|x64.Build.0 = Release|Any CPU
 		{4EBB8F3A-2EBB-465D-8346-926749F13413}.Release|x86.ActiveCfg = Release|Any CPU
 		{4EBB8F3A-2EBB-465D-8346-926749F13413}.Release|x86.Build.0 = Release|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Debug|x64.Build.0 = Debug|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Debug|x86.Build.0 = Debug|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Release|x64.ActiveCfg = Release|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Release|x64.Build.0 = Release|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Release|x86.ActiveCfg = Release|Any CPU
+		{4E9B129B-07AE-4CE8-A452-42290F9A6AAE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

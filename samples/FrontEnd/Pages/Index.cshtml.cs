@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Orleans;
 using Shared.Contracts;
 
 namespace FrontEnd.Pages
@@ -17,16 +18,18 @@ namespace FrontEnd.Pages
 
         }
 
-        public async Task<IActionResult> OnPost([FromServices]IOrderService client)
+        public async Task<IActionResult> OnPost([FromServices]IGrainFactory client)
         {
+            var id = Guid.NewGuid();
+            var grain = client.GetGrain<IOrderGrain>(id);
             var order = new Order
             {
-                OrderId = Guid.NewGuid(),
+                OrderId = id,
                 CreatedTime = DateTime.UtcNow,
                 UserId = User.Identity.Name
             };
 
-            await client.PlaceOrderAsync(order);
+            await grain.PlaceOrderAsync(order);
 
             return Redirect("/");
         }

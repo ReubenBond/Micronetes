@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
-using System.Threading.Tasks;
+using System.Threading;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
+using Orleans.Configuration;
+using Orleans.Hosting;
 
 namespace BackEnd
 {
@@ -17,13 +18,19 @@ namespace BackEnd
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(web =>
+                .UseOrleans((ctx, siloBuilder) =>
                 {
-                    web.UseStartup<Startup>()
-                       .ConfigureKestrel(options =>
-                       {
-                           options.ConfigureEndpointDefaults(o => o.Protocols = HttpProtocols.Http2);
-                       });
+                    var cfg = ctx.Configuration;
+
+                    var gwListenPort = int.Parse(cfg["GATEWAY_INTERNAL_PORT"]);
+                    var siloListenPort = int.Parse(cfg["SILO_INTERNAL_PORT"]);
+                    siloBuilder.ConfigureEndpoints(siloListenPort, gwListenPort, listenOnAnyHostAddress: true);
+                    siloBuilder.Configure<ClusterOptions>(o => o.ClusterId = o.ServiceId = "dev");
+
+                    var redisConnectionString = $"{cfg["SERVICE:REDIS:HOST"]}:{cfg["SERVICE:REDIS:PORT"]}";
+                    siloBuilder.UseRedisMembership(redisConnectionString);
+
+                    siloBuilder.AddMemoryGrainStorageAsDefault();
                 });
     }
 }

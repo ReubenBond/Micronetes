@@ -131,6 +131,7 @@ namespace Micronetes.Hosting
                     foreach (var p in ports)
                     {
                         environment[$"{p.Protocol?.ToUpper() ?? "HTTP"}_PORT"] = p.BindingPort.ToString();
+                        environment[$"{p.Protocol?.ToUpper() ?? "HTTP"}_INTERNAL_PORT"] = p.Port.ToString();
                     }
                 }
 
